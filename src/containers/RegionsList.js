@@ -24,13 +24,16 @@ class RegionsList extends Component<Props, State> {
     const { state } = this;
 
     try {
-      const reponse = await fetchParticipation();
+      const response = await fethRegionsAndParticipations();
       this.setState({ ...state, isFetching: false });
     } catch (error) {
+      console.error(error);
       this.setState({
         ...state,
         isFetching: false,
-        errorMessage: `Ett fel uppstod. (status ${error.status})`,
+        errorMessage: `Ett fel uppstod. ${
+          error.status ? `Status: ${error.status}` : ''
+        }`,
       });
     }
   }
