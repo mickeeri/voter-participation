@@ -1,11 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import {
-  fethRegionsAndParticipations,
-  fetchParticipation,
-  fetchRegions,
-} from '../services/api';
+import getVoterTurnout from '../services/getVoterTurnout';
 
 import ErrorMessage from '../components/ErrorMessage';
 
@@ -24,7 +20,7 @@ class RegionsList extends Component<Props, State> {
     const { state } = this;
 
     try {
-      const response = await fethRegionsAndParticipations();
+      const response = await getVoterTurnout();
       this.setState({ ...state, isFetching: false });
     } catch (error) {
       console.error(error);
