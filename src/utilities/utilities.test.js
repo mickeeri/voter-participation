@@ -1,9 +1,7 @@
 import {
   normalizeRegions,
-  getYearlyResult,
-  byHighestParticipation,
-  filterOutLower,
-  getElementWithHighest,
+  groupByYear,
+  getRowWithHighestTurnout,
 } from './index';
 
 const valueTexts = ['Upplands Väsby', 'Vallentuna', 'Österåker'];
@@ -21,7 +19,7 @@ describe('normalizeRegions', () => {
   });
 });
 
-describe('get yearly data', () => {
+describe('groupByYear', () => {
   const mockData = [
     { key: ['0014', '1998'], values: ['98.5'] },
     { key: ['0014', '1999'], values: ['87.5'] },
@@ -30,7 +28,7 @@ describe('get yearly data', () => {
   ];
 
   it('should group values by year', () => {
-    expect(getYearlyResult(mockData)).toEqual({
+    expect(groupByYear(mockData)).toEqual({
       1999: [
         { value: '87.5', region: '0014' },
         { value: '96.6', region: '0115' },
@@ -43,23 +41,7 @@ describe('get yearly data', () => {
   });
 });
 
-describe('sort by highest participation', () => {
-  const mockData = [
-    { value: '87.5', region: '0014' },
-    { value: '99.5', region: '0117' },
-    { value: '96.6', region: '0115' },
-  ];
-
-  const sortedData = [
-    { value: '99.5', region: '0117' },
-    { value: '96.6', region: '0115' },
-    { value: '87.5', region: '0014' },
-  ];
-
-  expect(mockData.sort(byHighestParticipation)).toEqual(sortedData);
-});
-
-describe('filter, only leave the one with highest', () => {
+describe('getRowWithHighestTurnout', () => {
   const mockData = [
     { value: '87.5', region: '0014' },
     { value: '77.6', region: '0119' },
@@ -67,8 +49,10 @@ describe('filter, only leave the one with highest', () => {
     { value: '99.5', region: '0117' },
   ];
 
-  expect(getElementWithHighest(mockData)).toEqual({
-    value: '99.5',
-    region: '0117',
+  it('should only return element with highest value', () => {
+    expect(getRowWithHighestTurnout(mockData)).toEqual({
+      value: '99.5',
+      region: '0117',
+    });
   });
 });
