@@ -1,24 +1,12 @@
-// @flow
-
 // Create objects with name of region and code.
-export function normalizeRegions({
-  values,
-  valueTexts,
-}: {
-  values: Array<string>,
-  valueTexts: Array<string>,
-}): {
-  [string]: { name: string },
-} {
+export function normalizeRegions({ values, valueTexts }) {
   return values.reduce((obj, val, index) => {
     return { ...obj, [val]: { name: valueTexts[index] } };
   }, {});
 }
 
 // Get result in the form of year: { value: '',  region: '' }.
-export function groupByYear(
-  values: Array<{ key: [string, string], values: [string] }>
-): { [number]: Array<{ value: string, region: string }> } {
+export function groupByYear() {
   return values.reduce((obj, curr) => {
     const { key, values } = curr;
     const [region, year] = key;
@@ -37,12 +25,14 @@ export function groupByYear(
 }
 
 // Filters out all the rows except the one with the highest turnout.
-export function getRowWithHighestTurnout(
-  data: Array<{ value: string, region: string }>
-) {
+export function getRowWithHighestTurnout(data) {
   const sortedByValue = data.sort((a, b) => {
     return +a.value > +b.value ? -1 : 1;
   });
 
-  return sortedByValue[0];
+  const row = sortedByValue[0];
+
+  const allRows = data.filter(el => el.value === row.value);
+
+  return allRows;
 }

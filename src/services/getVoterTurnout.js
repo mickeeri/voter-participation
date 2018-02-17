@@ -1,5 +1,3 @@
-// @flow
-
 import { get, post } from './api';
 import {
   groupByYear,
@@ -31,14 +29,13 @@ function getQuery(regions, contentsCode) {
   };
 }
 
-export default async function getVoterTurnOut(): Promise {
-  const voterTurnout = [];
-
+export default async function getVoterTurnOut() {
   const tableContent = await get();
 
   const [regions, content, time] = tableContent.variables;
 
   const contentsCode = content.values[0];
+
   const years = time.values.sort((a, b) => (+a < +b ? 1 : -1));
 
   const regionCodes = regions.values;

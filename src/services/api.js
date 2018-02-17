@@ -1,5 +1,3 @@
-// @flow
-
 import fetch from 'so-fetch-js';
 
 const API_URI =
@@ -15,7 +13,7 @@ export async function get() {
   return response.data;
 }
 
-export async function post(body: {}) {
+export async function post(body) {
   const response = await fetch(API_URI, {
     method: 'POST',
     body: JSON.stringify(body),
