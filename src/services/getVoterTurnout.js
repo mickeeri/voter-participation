@@ -35,7 +35,6 @@ export default async function getVoterTurnOut() {
   const [regions, content, time] = tableContent.variables;
 
   const contentsCode = content.values[0];
-
   const years = time.values.sort((a, b) => (+a < +b ? 1 : -1));
 
   const regionCodes = regions.values;

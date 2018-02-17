@@ -1,4 +1,5 @@
 // Create objects with name of region and code.
+// regionCode: { name: '' }
 export function normalizeRegions({ values, valueTexts }) {
   return values.reduce((obj, val, index) => {
     return { ...obj, [val]: { name: valueTexts[index] } };
@@ -6,7 +7,7 @@ export function normalizeRegions({ values, valueTexts }) {
 }
 
 // Get result in the form of year: { value: '',  region: '' }.
-export function groupByYear() {
+export function groupByYear(values) {
   return values.reduce((obj, curr) => {
     const { key, values } = curr;
     const [region, year] = key;

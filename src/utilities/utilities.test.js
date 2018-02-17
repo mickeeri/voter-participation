@@ -42,17 +42,43 @@ describe('groupByYear', () => {
 });
 
 describe('getRowWithHighestTurnout', () => {
-  const mockData = [
-    { value: '87.5', region: '0014' },
-    { value: '77.6', region: '0119' },
-    { value: '96.6', region: '0115' },
-    { value: '99.5', region: '0117' },
-  ];
-
   it('should only return element with highest value', () => {
-    expect(getRowWithHighestTurnout(mockData)).toEqual({
-      value: '99.5',
-      region: '0117',
-    });
+    const mockData = [
+      { value: '87.5', region: '0014' },
+      { value: '77.6', region: '0119' },
+      { value: '96.6', region: '0115' },
+      { value: '99.5', region: '0117' },
+    ];
+
+    expect(getRowWithHighestTurnout(mockData)).toEqual([
+      {
+        value: '99.5',
+        region: '0117',
+      },
+    ]);
+  });
+
+  it.only('should return multiple rows if multiple rows has same value', () => {
+    const mockData = [
+      { value: '99.6', region: '0014' },
+      { value: '77.2', region: '0119' },
+      { value: '99.6', region: '0115' },
+      { value: '99.6', region: '0117' },
+    ];
+
+    expect(getRowWithHighestTurnout(mockData)).toEqual([
+      {
+        value: '99.6',
+        region: '0117',
+      },
+      {
+        value: '99.6',
+        region: '0115',
+      },
+      {
+        value: '99.6',
+        region: '0014',
+      },
+    ]);
   });
 });
