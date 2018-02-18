@@ -4,10 +4,10 @@ import getVoterTurnout from '../services/getVoterTurnout';
 import ErrorMessage from '../components/ErrorMessage';
 import ResultList from '../components/ResultList';
 
-class VoterTurnoutComponent extends Component {
+class VoterTurnoutContainer extends Component {
   state = {
     isFetching: true,
-    result: null,
+    turnout: null,
     errorMessage: '',
   };
 
@@ -15,9 +15,8 @@ class VoterTurnoutComponent extends Component {
     const { state } = this;
 
     try {
-      const result = await getVoterTurnout();
-
-      this.setState({ ...state, isFetching: false, result });
+      const turnout = await getVoterTurnout();
+      this.setState({ ...state, isFetching: false, turnout });
     } catch (error) {
       this.setState({
         ...state,
@@ -30,20 +29,20 @@ class VoterTurnoutComponent extends Component {
   }
 
   render() {
-    const { errorMessage, isFetching, result } = this.state;
+    const { errorMessage, isFetching, turnout } = this.state;
 
     return (
-      <div id="VoterTurnoutComponent">
+      <div id="VoterTurnoutContainer">
         {isFetching && <div>Hämtar ...</div>}
         {errorMessage && (
           <ErrorMessage>
             <span>{errorMessage}</span>
           </ErrorMessage>
         )}
-        {result && <ResultList result={result} />}
+        {turnout && <ResultList turnout={turnout} />}
       </div>
     );
   }
 }
 
-export default VoterTurnoutComponent;
+export default VoterTurnoutContainer;

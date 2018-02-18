@@ -2,7 +2,7 @@
 // regionCode: { name: '' }
 export function normalizeRegions({ values, valueTexts }) {
   return values.reduce((obj, val, index) => {
-    return { ...obj, [val]: { name: valueTexts[index] } };
+    return { ...obj, [val]: valueTexts[index] };
   }, {});
 }
 

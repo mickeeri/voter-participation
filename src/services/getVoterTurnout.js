@@ -1,4 +1,4 @@
-import { get, post } from './api';
+import { fetchMetaData, fetchVoterTurnout } from './api';
 import {
   groupByYear,
   getRowWithHighestTurnout,
@@ -30,7 +30,7 @@ function getQuery(regions, contentsCode) {
 }
 
 export default async function getVoterTurnOut() {
-  const tableContent = await get();
+  const tableContent = await fetchMetaData();
 
   const [regions, content, time] = tableContent.variables;
 
@@ -39,12 +39,15 @@ export default async function getVoterTurnOut() {
 
   const regionCodes = regions.values;
 
-  const turnoutContent = await post(getQuery(regionCodes, contentsCode));
+  const turnoutContent = await fetchVoterTurnout(
+    getQuery(regionCodes, contentsCode)
+  );
 
   const turnoutData = turnoutContent.data;
 
   const groupedByYear = groupByYear(turnoutData);
 
+  // Reduce result to only contain rows with highest turnout.
   const results = years.reduce((obj, year) => {
     const turnoutPerYear = groupedByYear[year];
     const rowWithHighestTurnout = getRowWithHighestTurnout(turnoutPerYear);

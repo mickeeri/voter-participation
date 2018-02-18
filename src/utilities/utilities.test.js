@@ -12,9 +12,9 @@ const mockVariables = { values, valueTexts };
 describe('normalizeRegions', () => {
   it('should normalize response', () => {
     expect(normalizeRegions(mockVariables)).toEqual({
-      ['0014']: { name: 'Upplands Väsby' },
-      ['0115']: { name: 'Vallentuna' },
-      ['0117']: { name: 'Österåker' },
+      ['0014']: 'Upplands Väsby',
+      ['0115']: 'Vallentuna',
+      ['0117']: 'Österåker',
     });
   });
 });
@@ -58,7 +58,7 @@ describe('getRowWithHighestTurnout', () => {
     ]);
   });
 
-  it.only('should return multiple rows if multiple rows has same value', () => {
+  it('should return multiple rows if multiple rows has same value', () => {
     const mockData = [
       { value: '99.6', region: '0014' },
       { value: '77.2', region: '0119' },
