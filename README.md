@@ -15,4 +15,4 @@ från 1973 till senaste riksdagsval. All data hämtas från SCB:s öppna API. Ap
 2. I repots mapp, kör `yarn install` eller `npm install`.
 3. Kör testsviten med `yarn run test` eller `npm run test`.
 4. Starta applikationen med `yarn start` eller `npm start`.
-5. Applikation finns även publicerad [här](https://mickeeri.github.io/voter-turnout/).
+5. Applikationen finns även publicerad [här](https://mickeeri.github.io/voter-turnout/).
