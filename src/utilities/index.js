@@ -1,12 +1,12 @@
 // Create objects with name of region and code.
-// regionCode: { name: '' }
+// regionCode: 'nameOfRegion'
 export function normalizeRegions({ values, valueTexts }) {
   return values.reduce((obj, val, index) => {
     return { ...obj, [val]: valueTexts[index] };
   }, {});
 }
 
-// Get result in the form of year: { value: '',  region: '' }.
+// Get result in the form of year: { value: 'voterTurnout',  region: 'regionCode' }.
 export function groupByYear(values) {
   return values.reduce((obj, curr) => {
     const { key, values } = curr;
@@ -25,7 +25,7 @@ export function groupByYear(values) {
   }, {});
 }
 
-// Filters out all the rows except the one with the highest turnout.
+// Filters out all the rows except the ones with the highest turnout.
 export function getRowWithHighestTurnout(data) {
   const sortedByValue = data.sort((a, b) => {
     return +a.value > +b.value ? -1 : 1;
